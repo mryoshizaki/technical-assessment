@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','*']
 
+CSRF_TRUSTED_ORIGINS = ['https://netzwelttechnicalassessment-miraireyesyoshizaki.b4a.run']
 
 # Application definition
 
