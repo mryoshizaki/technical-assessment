@@ -1,0 +1,9 @@
+<li class="list-group-item">{{ territory.name }}
+    {% if territory.children %}
+        <ul class="list-group">
+            {% for child in territory.children %}
+                {% include 'territory.html' with territory=child %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

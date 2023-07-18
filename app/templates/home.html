@@ -1,19 +1,13 @@
-<h1>Territories</h1>
-<h2>Here are the list of territories</h2>
-<ul>
-{% for territory in hierarchy %}
-    <li>{{ territory.name }}
-        <ul>
-            {% for child in territory.children %}
-                <li>{{ child.name }}
-                    <ul>
-                        {% for sub_child in child.children %}
-                            <li>{{ sub_child.name }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Territories</h1>
+        <h2>Here are the list of territories</h2>
+        <ul class="list-group">
+            {% for territory in hierarchy %}
+                {% include 'territory.html' with territory=territory %}
             {% endfor %}
         </ul>
-    </li>
-{% endfor %}
-</ul>
+    </div>
+{% endblock %}

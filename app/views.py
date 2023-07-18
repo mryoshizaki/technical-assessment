@@ -56,23 +56,22 @@ def home_view(request):
     return render(request, 'home.html', {'hierarchy': hierarchy})
 
 def build_hierarchy(territories):
-    hierarchy = {}
-    
+    territory_dict = {territory['id']: territory for territory in territories['data']}
+    hierarchy = []
+
+    def add_children(node):
+        territory_id = node['id']
+        if territory_id in territory_dict:
+            territory = territory_dict[territory_id]
+            node['children'] = [add_children(child) for child in territory_dict.values() if child['parent'] == territory_id]
+        return node
+
     for territory in territories['data']:
-        territory_id = territory['id']
-        parent_id = territory['parent']
-        territory_name = territory['name']
+        if territory['parent'] is None:
+            hierarchy.append(add_children({'id': territory['id'], 'name': territory['name'], 'children': []}))
 
-        node = {'id': territory_id, 'name': territory_name, 'children': []}
+    return hierarchy
 
-        if parent_id in hierarchy:
-            hierarchy[parent_id]['children'].append(node)
-        elif parent_id is None:
-            hierarchy[territory_id] = node
-        else:
-            print(f"Parent ID {parent_id} not found for territory {territory_id}")
-
-    return list(hierarchy.values())
 
 
 
