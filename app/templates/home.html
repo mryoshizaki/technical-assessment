@@ -1,0 +1,23 @@
+<h1>Territories</h1>
+<h2>Here are the list of territories</h2>
+{% load static %}
+
+<div id="app">
+    <ul>
+        <li v-for="territory in hierarchy">
+            {{ territory.name }}
+            <ul>
+                <li v-for="child in territory.children">
+                    {{ child.name }}
+                    <ul>
+                        <li v-for="sub_child in child.children">
+                            {{ sub_child.name }}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<script src="{% static 'app/app.js' %}"></script>
